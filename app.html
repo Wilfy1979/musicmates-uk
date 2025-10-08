@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MusicMates UK - Dating App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="app-body">
+    <header class="app-header">
+        <div class="app-nav">
+            <a href="index.html" class="back-link">← Home</a>
+            <h1>🎵 MusicMates</h1>
+            <div class="user-profile">
+                <span id="user-name">Guest</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <!-- Onboarding Section -->
+        <section id="onboarding" class="app-section active">
+            <div class="onboarding-container">
+                <h2>Welcome to MusicMates! 🎸</h2>
+                <p>Let's create your profile and find your perfect musical match</p>
+                
+                <form id="profile-form" class="profile-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" required placeholder="Enter your name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" required min="18" max="100" placeholder="18">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Location (UK)</label>
+                        <input type="text" id="location" required placeholder="London, Manchester, etc.">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Favorite Music Genres (Select all that apply)</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="Rock"> Rock
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="Pop"> Pop
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="Jazz"> Jazz
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="Classical"> Classical
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="Electronic"> Electronic
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="Hip Hop"> Hip Hop
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="Indie"> Indie
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="Folk"> Folk
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="favorite-artist">Favorite Artist</label>
+                        <input type="text" id="favorite-artist" required placeholder="Your favorite artist or band">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bio">About You</label>
+                        <textarea id="bio" rows="4" placeholder="Tell us about yourself and your love for music..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary btn-block">Start Matching 💕</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Matching Section -->
+        <section id="matching" class="app-section">
+            <div class="matching-container">
+                <h2>Discover Your Matches</h2>
+                
+                <div class="match-card-container">
+                    <div id="match-card" class="match-card">
+                        <!-- Match profile will be dynamically inserted here -->
+                    </div>
+                </div>
+                
+                <div class="match-actions">
+                    <button id="pass-btn" class="action-btn pass-btn" title="Pass">
+                        <span>✗</span>
+                    </button>
+                    <button id="super-like-btn" class="action-btn super-like-btn" title="Super Like">
+                        <span>⭐</span>
+                    </button>
+                    <button id="like-btn" class="action-btn like-btn" title="Like">
+                        <span>♥</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Matches List Section -->
+        <section id="matches-list" class="app-section">
+            <div class="matches-container">
+                <h2>Your Matches 💕</h2>
+                <div id="matches-grid" class="matches-grid">
+                    <!-- Matches will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Chat Section -->
+        <section id="chat" class="app-section">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <button id="back-to-matches" class="back-btn">← Back</button>
+                    <div class="chat-user-info">
+                        <h3 id="chat-user-name"></h3>
+                        <p id="chat-user-status">Online</p>
+                    </div>
+                </div>
+                
+                <div id="chat-messages" class="chat-messages">
+                    <!-- Messages will be dynamically inserted here -->
+                </div>
+                
+                <div class="chat-input-container">
+                    <input type="text" id="chat-input" placeholder="Type a message..." />
+                    <button id="send-message" class="btn-primary">Send</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <button class="nav-item" data-section="matching">
+            <span>🔥</span>
+            <span>Discover</span>
+        </button>
+        <button class="nav-item" data-section="matches-list">
+            <span>💕</span>
+            <span>Matches</span>
+        </button>
+        <button class="nav-item" data-section="chat">
+            <span>💬</span>
+            <span>Chat</span>
+        </button>
+    </nav>
+
+    <script src="app.js"></script>
+</body>
+</html>
