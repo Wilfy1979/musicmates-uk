@@ -3,117 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MusicMates UK</title>
+    <title>Music Mates UK</title>
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom, #8B5CF6, #EC4899, #3B82F6);
-            color: white;
-            animation: fadeIn 1s;
+            background-color: black;
+            color: #FFD700;
+            font-family: Arial, sans-serif;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        header, footer {
+            border: 2px solid yellow;
+            padding: 10px;
+            text-align: center;
         }
-        header {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            background: rgba(31, 41, 55, 0.8);
+        nav {
+            margin: 20px 0;
         }
         nav a {
-            color: white;
+            color: #FFD700;
             margin: 0 15px;
             text-decoration: none;
         }
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-            background: url('hero-background.jpg') no-repeat center center/cover;
-        }
-        .features {
+        .video-showcase {
             display: flex;
-            justify-content: space-around;
-            padding: 40px 20px;
+            justify-content: center;
+            margin: 20px 0;
         }
-        .feature-card {
-            background: rgba(31, 41, 55, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-        }
-        .feature-card:hover {
-            transform: scale(1.05);
-        }
-        .cta {
-            text-align: center;
-            padding: 40px;
-        }
-        .cta button {
-            padding: 10px 20px;
-            background: #8B5CF6;
-            border: none;
-            color: white;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .cta button:hover {
-            background: #EC4899;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: rgba(31, 41, 55, 0.8);
-        }
-        @media (max-width: 768px) {
-            .features {
-                flex-direction: column;
-                align-items: center;
-            }
+        .video-showcase iframe {
+            border: 2px solid yellow;
+            width: 80%;
+            height: 400px;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">MusicMates UK</div>
+        <h1>Welcome to Music Mates UK</h1>
         <nav>
-            <a href="#">Home</a>
-            <a href="#">Sign Up</a>
-            <a href="#">Browse</a>
-            <a href="#">Gig Guide</a>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
         </nav>
     </header>
-    <section class="hero">
-        <h1>Find Your Music Soulmate</h1>
-        <h2>Connect with people who love the same bands as you</h2>
-        <video width="600" controls>
-            <source src="The Open - Elevation.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </section>
-    <section class="features">
-        <div class="feature-card">
-            <h3>Match by Bands</h3>
-            <p>Connect through shared favorite bands</p>
-        </div>
-        <div class="feature-card">
-            <h3>Local Connections</h3>
-            <p>Find music lovers in your area across UK</p>
-        </div>
-        <div class="feature-card">
-            <h3>Meet at Gigs</h3>
-            <p>Discover who's going to the same concerts</p>
-        </div>
-    </section>
-    <section class="cta">
-        <h2>Ready to Meet Your Music Match?</h2>
-        <button>Sign Up Free</button>
-    </section>
+
+    <main>
+        <section class="video-showcase">
+            <iframe src="https://www.youtube.com/embed/example" frameborder="0" allowfullscreen></iframe>
+        </section>
+    </main>
+
     <footer>
-        <p>&copy; 2023 MusicMates UK. All rights reserved.</p>
+        <p>&copy; 2023 Music Mates UK. All rights reserved.</p>
     </footer>
 </body>
 </html>
