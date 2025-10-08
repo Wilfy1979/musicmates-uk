@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            background-color: black;
+            color: yellow;
+            font-family: Arial, sans-serif;
+        }
+        nav {
+            background-color: yellow;
+            padding: 10px;
+        }
+        nav a {
+            color: black;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        form {
+            margin: 20px;
+        }
+        input, select, textarea {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+        }
+        button {
+            background-color: yellow;
+            color: black;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="signup.html">Sign Up</a>
+    <a href="app.html">App</a>
+    <a href="gigs.html">Gigs</a>
+</nav>
+
+<h1>Sign Up</h1>
+<form id="signupForm">
+    <input type="text" placeholder="Name" required>
+    <input type="number" placeholder="Age" required>
+    
+    <label for="gender">Gender:</label>
+    <select id="gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+    </select>
+    
+    <input type="email" placeholder="Email" required>
+    
+    <label for="photo">Upload Photo:</label>
+    <input type="file" id="photo" required>
+    
+    <label for="city">UK City:</label>
+    <select id="city" required>
+        <option value="London">London</option>
+        <option value="Manchester">Manchester</option>
+        <option value="Birmingham">Birmingham</option>
+        <option value="Glasgow">Glasgow</option>
+        <option value="Liverpool">Liverpool</option>
+        <option value="Edinburgh">Edinburgh</option>
+        <option value="Cardiff">Cardiff</option>
+        <option value="Belfast">Belfast</option>
+        <option value="Bristol">Bristol</option>
+        <option value="Leeds">Leeds</option>
+        <option value="Sheffield">Sheffield</option>
+        <option value="Newcastle">Newcastle</option>
+        <!-- Add more cities as needed -->
+    </select>
+    
+    <input type="text" placeholder="Postcode" required>
+    
+    <label>What are you looking for?</label>
+    <input type="checkbox" value="meet friends"> Meet Friends
+    <input type="checkbox" value="dating"> Dating
+    <input type="checkbox" value="concert buddies"> Concert Buddies
+    <input type="checkbox" value="open to more"> Open to More
+    
+    <h3>Top 5 Favorite Bands</h3>
+    <input type="text" placeholder="Band 1">
+    <input type="text" placeholder="Band 2">
+    <input type="text" placeholder="Band 3">
+    <input type="text" placeholder="Band 4">
+    <input type="text" placeholder="Band 5">
+    
+    <label>Preferred Genres:</label>
+    <input type="checkbox" value="Rock"> Rock
+    <input type="checkbox" value="Pop"> Pop
+    <input type="checkbox" value="Indie"> Indie
+    <input type="checkbox" value="Metal"> Metal
+    <input type="checkbox" value="Jazz"> Jazz
+    <input type="checkbox" value="Classical"> Classical
+    <input type="checkbox" value="Electronic"> Electronic
+    <input type="checkbox" value="HipHop"> Hip Hop
+    <input type="checkbox" value="Country"> Country
+    <input type="checkbox" value="Punk"> Punk
+    <input type="checkbox" value="Alternative"> Alternative
+    <input type="checkbox" value="Blues"> Blues
+    <input type="checkbox" value="Reggae"> Reggae
+    <input type="checkbox" value="Soul"> Soul
+    <input type="checkbox" value="Folk"> Folk
+    
+    <h3>Last Gig</h3>
+    <input type="text" placeholder="Band Name">
+    <input type="text" placeholder="Venue">
+    <input type="date" placeholder="Date">
+    <input type="text" placeholder="Location">
+    <input type="number" placeholder="Rating (1-5)">
+    
+    <input type="text" placeholder="Instruments (optional)">
+    <textarea placeholder="Bio (optional)"></textarea>
+    
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    document.getElementById('signupForm').onsubmit = function(event) {
+        event.preventDefault();
+        
+        const formData = {
+            name: this[0].value,
+            age: this[1].value,
+            gender: this[2].value,
+            email: this[3].value,
+            photo: this[4].files[0].name,
+            city: this[5].value,
+            postcode: this[6].value,
+            lookingFor: Array.from(this[7].parentElement.children).filter(input => input.checked).map(input => input.value),
+            favoriteBands: Array.from(this.querySelectorAll('input[type="text"]').slice(0, 5)).map(input => input.value),
+            genres: Array.from(this[8].parentElement.children).filter(input => input.checked).map(input => input.value),
+            lastGig: {
+                band: this[9].value,
+                venue: this[10].value,
+                date: this[11].value,
+                location: this[12].value,
+                rating: this[13].value,
+            },
+            instruments: this[14].value,
+            bio: this[15].value,
+        };
+
+        localStorage.setItem('signupData', JSON.stringify(formData));
+        window.location.href = 'app.html';
+    }
+</script>
+
+</body>
+</html>

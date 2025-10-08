@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Mates - Dating App</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <style>
+        body {
+            background-color: black;
+            color: yellow;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: black;
+            padding: 1rem;
+            text-align: center;
+        }
+        .navbar a {
+            color: yellow;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .profile-card {
+            background-color: #333;
+            border-radius: 10px;
+            margin: 1rem;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .profile-card:hover {
+            transform: scale(1.05);
+        }
+        .buttons {
+            margin-top: 1rem;
+        }
+        .button {
+            background-color: yellow;
+            border: none;
+            color: black;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="signup.html">Sign Up</a>
+        <a href="app.html">App</a>
+        <a href="gigs.html">Gigs</a>
+    </div>
+    <div id="profile-container">
+        <div class="profile-card">
+            <img src="profile-photo-url" alt="Profile Photo" style="width:100%; border-radius: 10px;">
+            <h2 id="name">Name</h2>
+            <p id="age-city">Age, City</p>
+            <p id="distance">Distance: X miles</p>
+            <p id="bands">Shared Bands: <span style="color: yellow;">Band1, Band2</span></p>
+            <p id="genre-badge">Genres: Rock, Pop</p>
+            <p id="last-gig">Last Gig: Gig Name</p>
+            <div class="buttons">
+                <button class="button" onclick="likeProfile()">Like</button>
+                <button class="button" onclick="passProfile()">Pass</button>
+            </div>
+        </div>
+    </div>
+    <div id="matches-section">
+        <h2>Who's Struck a Chord With You</h2>
+        <div id="matches-list"></div>
+    </div>
+    <script>
+        // Sample JavaScript functions for liking and passing profiles
+        function likeProfile() {
+            // Logic for liking a profile
+        }
+
+        function passProfile() {
+            // Logic for passing a profile
+        }
+    </script>
+</body>
+</html>
