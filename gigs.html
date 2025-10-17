@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Gigs - Music Mates UK</title>
+    <style>
+        body {
+            background-color: black;
+            color: yellow;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: black;
+            border-bottom: 2px solid yellow;
+            padding: 1rem;
+            text-align: center;
+        }
+        .navbar a {
+            color: yellow;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            color: #FFD700;
+        }
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: yellow;
+            margin-bottom: 2rem;
+        }
+        .gig-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .gig-card {
+            background-color: #333;
+            border: 2px solid yellow;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+        .gig-card:hover {
+            transform: scale(1.05);
+        }
+        .gig-card h2 {
+            color: yellow;
+            margin-bottom: 1rem;
+        }
+        .gig-card p {
+            color: #FFD700;
+            margin: 0.5rem 0;
+        }
+        .gig-date {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .gig-venue {
+            font-style: italic;
+        }
+        .gig-genre {
+            background-color: yellow;
+            color: black;
+            padding: 3px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .interested-btn {
+            background-color: yellow;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1rem;
+            width: 100%;
+        }
+        .interested-btn:hover {
+            background-color: #FFD700;
+        }
+        footer {
+            background-color: black;
+            border-top: 2px solid yellow;
+            padding: 1rem;
+            text-align: center;
+            color: yellow;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="signup.html">Sign Up</a>
+        <a href="app.html">App</a>
+        <a href="gigs.html">Gigs</a>
+    </div>
+
+    <div class="container">
+        <h1>🎸 Upcoming Gigs in Your Area 🎸</h1>
+        
+        <div class="gig-list">
+            <div class="gig-card">
+                <h2>Arctic Monkeys</h2>
+                <p class="gig-date">📅 Saturday, 25th November 2025</p>
+                <p class="gig-venue">📍 The O2 Arena, London</p>
+                <p>Time: 8:00 PM</p>
+                <span class="gig-genre">Indie Rock</span>
+                <button class="interested-btn">I'm Interested</button>
+            </div>
+
+            <div class="gig-card">
+                <h2>Ed Sheeran</h2>
+                <p class="gig-date">📅 Friday, 1st December 2025</p>
+                <p class="gig-venue">📍 Wembley Stadium, London</p>
+                <p>Time: 7:30 PM</p>
+                <span class="gig-genre">Pop</span>
+                <button class="interested-btn">I'm Interested</button>
+            </div>
+
+            <div class="gig-card">
+                <h2>The 1975</h2>
+                <p class="gig-date">📅 Wednesday, 6th December 2025</p>
+                <p class="gig-venue">📍 Manchester Arena, Manchester</p>
+                <p>Time: 8:00 PM</p>
+                <span class="gig-genre">Alternative Rock</span>
+                <button class="interested-btn">I'm Interested</button>
+            </div>
+
+            <div class="gig-card">
+                <h2>Coldplay</h2>
+                <p class="gig-date">📅 Saturday, 9th December 2025</p>
+                <p class="gig-venue">📍 Hampden Park, Glasgow</p>
+                <p>Time: 7:00 PM</p>
+                <span class="gig-genre">Alternative</span>
+                <button class="interested-btn">I'm Interested</button>
+            </div>
+
+            <div class="gig-card">
+                <h2>Sam Fender</h2>
+                <p class="gig-date">📅 Sunday, 10th December 2025</p>
+                <p class="gig-venue">📍 St. James' Park, Newcastle</p>
+                <p>Time: 6:30 PM</p>
+                <span class="gig-genre">Indie Rock</span>
+                <button class="interested-btn">I'm Interested</button>
+            </div>
+
+            <div class="gig-card">
+                <h2>Harry Styles</h2>
+                <p class="gig-date">📅 Friday, 15th December 2025</p>
+                <p class="gig-venue">📍 Principality Stadium, Cardiff</p>
+                <p>Time: 8:00 PM</p>
+                <span class="gig-genre">Pop</span>
+                <button class="interested-btn">I'm Interested</button>
+            </div>
+
+            <div class="gig-card">
+                <h2>Metallica</h2>
+                <p class="gig-date">📅 Saturday, 16th December 2025</p>
+                <p class="gig-venue">📍 Birmingham Arena, Birmingham</p>
+                <p>Time: 8:30 PM</p>
+                <span class="gig-genre">Metal</span>
+                <button class="interested-btn">I'm Interested</button>
+            </div>
+
+            <div class="gig-card">
+                <h2>Dua Lipa</h2>
+                <p class="gig-date">📅 Sunday, 17th December 2025</p>
+                <p class="gig-venue">📍 Anfield Stadium, Liverpool</p>
+                <p>Time: 7:00 PM</p>
+                <span class="gig-genre">Pop</span>
+                <button class="interested-btn">I'm Interested</button>
+            </div>
+
+            <div class="gig-card">
+                <h2>Oasis Reunion Tour</h2>
+                <p class="gig-date">📅 Wednesday, 20th December 2025</p>
+                <p class="gig-venue">📍 Etihad Stadium, Manchester</p>
+                <p>Time: 8:00 PM</p>
+                <span class="gig-genre">Britpop</span>
+                <button class="interested-btn">I'm Interested</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Music Mates UK. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Handle "I'm Interested" button clicks
+        document.querySelectorAll('.interested-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const gigCard = this.closest('.gig-card');
+                const bandName = gigCard.querySelector('h2').textContent;
+                
+                // Store interested gig
+                let interestedGigs = JSON.parse(localStorage.getItem('interestedGigs') || '[]');
+                if (!interestedGigs.includes(bandName)) {
+                    interestedGigs.push(bandName);
+                    localStorage.setItem('interestedGigs', JSON.stringify(interestedGigs));
+                    
+                    this.textContent = '✓ Interested';
+                    this.style.backgroundColor = '#4CAF50';
+                    this.style.color = 'white';
+                } else {
+                    alert('You\'re already interested in this gig!');
+                }
+            });
+        });
+
+        // Check if user has already marked interest
+        window.addEventListener('DOMContentLoaded', () => {
+            const interestedGigs = JSON.parse(localStorage.getItem('interestedGigs') || '[]');
+            document.querySelectorAll('.gig-card').forEach(card => {
+                const bandName = card.querySelector('h2').textContent;
+                if (interestedGigs.includes(bandName)) {
+                    const btn = card.querySelector('.interested-btn');
+                    btn.textContent = '✓ Interested';
+                    btn.style.backgroundColor = '#4CAF50';
+                    btn.style.color = 'white';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
