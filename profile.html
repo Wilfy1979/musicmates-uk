@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Music Mates UK</title>
+    <style>
+        body {
+            background-color: black;
+            color: #FFD700;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            border: 2px solid yellow;
+            padding: 10px;
+            text-align: center;
+        }
+        nav {
+            margin: 20px 0;
+        }
+        nav a {
+            color: #FFD700;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: yellow;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        .profile-section {
+            background-color: #333;
+            border: 2px solid yellow;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .profile-section h2 {
+            color: yellow;
+            margin-bottom: 1rem;
+        }
+        .profile-field {
+            margin: 1rem 0;
+            color: #FFD700;
+        }
+        .profile-field label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .profile-field p {
+            margin: 0.5rem 0;
+        }
+        .badge {
+            background-color: yellow;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 5px;
+            font-size: 0.9rem;
+        }
+        .button {
+            background-color: yellow;
+            border: none;
+            color: black;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button:hover {
+            background-color: #FFD700;
+        }
+        footer {
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Profile - Music Mates UK</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="profile.html">Profile</a>
+            <a href="upload.html">Upload</a>
+            <a href="where.html">Where</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="profile-section">
+                <h2>👤 Personal Information</h2>
+                <div class="profile-field">
+                    <label>Name:</label>
+                    <p id="profile-name">Not set</p>
+                </div>
+                <div class="profile-field">
+                    <label>Age:</label>
+                    <p id="profile-age">Not set</p>
+                </div>
+                <div class="profile-field">
+                    <label>City:</label>
+                    <p id="profile-city">Not set</p>
+                </div>
+                <div class="profile-field">
+                    <label>Email:</label>
+                    <p id="profile-email">Not set</p>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h2>🎸 Music Preferences</h2>
+                <div class="profile-field">
+                    <label>Favorite Bands:</label>
+                    <div id="profile-bands">
+                        <p>Not set</p>
+                    </div>
+                </div>
+                <div class="profile-field">
+                    <label>Favorite Genres:</label>
+                    <div id="profile-genres">
+                        <p>Not set</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h2>🎤 Last Gig</h2>
+                <div class="profile-field">
+                    <label>Band:</label>
+                    <p id="profile-lastgig-band">Not set</p>
+                </div>
+                <div class="profile-field">
+                    <label>Venue:</label>
+                    <p id="profile-lastgig-venue">Not set</p>
+                </div>
+                <div class="profile-field">
+                    <label>Date:</label>
+                    <p id="profile-lastgig-date">Not set</p>
+                </div>
+                <div class="profile-field">
+                    <label>Location:</label>
+                    <p id="profile-lastgig-location">Not set</p>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h2>🔍 Looking For</h2>
+                <div id="profile-looking-for">
+                    <p>Not set</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="signup.html" class="button">Edit Profile</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Music Mates UK. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Load profile data from localStorage
+        window.addEventListener('DOMContentLoaded', () => {
+            const signupData = localStorage.getItem('signupData');
+            
+            if (signupData) {
+                const data = JSON.parse(signupData);
+                
+                // Personal information
+                document.getElementById('profile-name').textContent = data.name || 'Not set';
+                document.getElementById('profile-age').textContent = data.age || 'Not set';
+                document.getElementById('profile-city').textContent = data.city || 'Not set';
+                document.getElementById('profile-email').textContent = data.email || 'Not set';
+                
+                // Favorite bands
+                if (data.favoriteBands && data.favoriteBands.length > 0) {
+                    const bandsContainer = document.getElementById('profile-bands');
+                    bandsContainer.innerHTML = '';
+                    data.favoriteBands.forEach(band => {
+                        if (band) {
+                            const badge = document.createElement('span');
+                            badge.className = 'badge';
+                            badge.textContent = band;
+                            bandsContainer.appendChild(badge);
+                        }
+                    });
+                }
+                
+                // Genres
+                if (data.genres && data.genres.length > 0) {
+                    const genresContainer = document.getElementById('profile-genres');
+                    genresContainer.innerHTML = '';
+                    data.genres.forEach(genre => {
+                        const badge = document.createElement('span');
+                        badge.className = 'badge';
+                        badge.textContent = genre;
+                        genresContainer.appendChild(badge);
+                    });
+                }
+                
+                // Last gig
+                if (data.lastGig) {
+                    document.getElementById('profile-lastgig-band').textContent = data.lastGig.band || 'Not set';
+                    document.getElementById('profile-lastgig-venue').textContent = data.lastGig.venue || 'Not set';
+                    document.getElementById('profile-lastgig-date').textContent = data.lastGig.date || 'Not set';
+                    document.getElementById('profile-lastgig-location').textContent = data.lastGig.location || 'Not set';
+                }
+                
+                // Looking for
+                if (data.lookingFor && data.lookingFor.length > 0) {
+                    const lookingForContainer = document.getElementById('profile-looking-for');
+                    lookingForContainer.innerHTML = '';
+                    data.lookingFor.forEach(item => {
+                        const badge = document.createElement('span');
+                        badge.className = 'badge';
+                        badge.textContent = item;
+                        lookingForContainer.appendChild(badge);
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
