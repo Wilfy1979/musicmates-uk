@@ -191,7 +191,7 @@
                     const bandsContainer = document.getElementById('profile-bands');
                     bandsContainer.innerHTML = '';
                     data.favoriteBands.forEach(band => {
-                        if (band) {
+                        if (band && band.trim()) {
                             const badge = document.createElement('span');
                             badge.className = 'badge';
                             badge.textContent = band;
