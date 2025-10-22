@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ideas - Music Mates UK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .youtube-subscribe {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .youtube-subscribe a {
+            display: inline-block;
+            background: #FF0000;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .youtube-subscribe a:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .video-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .ideas-section {
+            margin: 30px 0;
+        }
+
+        .ideas-section h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .ideas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .idea-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .idea-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .idea-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        .idea-card .date {
+            color: #999;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .idea-card .hash {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.85em;
+            word-break: break-all;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .hash-label {
+            font-weight: 600;
+            color: #764ba2;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .registry-links {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .registry-links h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .registry-links a {
+            display: inline-block;
+            margin: 10px 15px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 25px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .registry-links a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .coming-soon {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .coming-soon h2 {
+            color: #667eea;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+
+        .coming-soon p {
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        footer p {
+            color: #666;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .ideas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .registry-links a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💡 Ideas & Creative Works</h1>
+            <p>Timestamped and hashed for proof of prior existence</p>
+        </header>
+
+        <div class="youtube-subscribe">
+            <a href="https://www.youtube.com/@RJM-Music1979?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
+                🔔 Subscribe to My YouTube Channel
+            </a>
+        </div>
+
+        <div class="video-section">
+            <h2>🎵 Featured Remaster</h2>
+            <div class="video-wrapper">
+                <!-- Replace VIDEO_ID with your actual YouTube video ID -->
+                <iframe 
+                    src="https://www.youtube.com/embed/VIDEO_ID" 
+                    title="YouTube video player" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <div class="ideas-section">
+            <h2>📝 Registered Ideas</h2>
+            <div class="ideas-grid">
+                <div class="idea-card">
+                    <h3>Example Idea #1</h3>
+                    <p class="date">📅 2025-01-15</p>
+                    <p>Sample creative work or concept description.</p>
+                    <div class="hash">
+                        <span class="hash-label">SHA-256 Hash:</span>
+                        a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2
+                    </div>
+                </div>
+
+                <div class="idea-card">
+                    <h3>Example Idea #2</h3>
+                    <p class="date">📅 2025-02-20</p>
+                    <p>Another sample creative work or concept.</p>
+                    <div class="hash">
+                        <span class="hash-label">SHA-256 Hash:</span>
+                        f2e1d0c9b8a7z6y5x4w3v2u1t0s9r8q7p6o5n4m3l2k1j0i9h8g7f6e5d4c3b2a1
+                    </div>
+                </div>
+
+                <div class="idea-card">
+                    <h3>Example Idea #3</h3>
+                    <p class="date">📅 2025-03-10</p>
+                    <p>Yet another creative concept or work idea.</p>
+                    <div class="hash">
+                        <span class="hash-label">SHA-256 Hash:</span>
+                        1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d1e2f3
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="registry-links">
+            <h3>🔍 Verification & Management</h3>
+            <a href="ideas_hashes.md">View Public Registry</a>
+            <a href="ideas_private_template.md">Add New Idea</a>
+        </div>
+
+        <div class="coming-soon">
+            <h2>🎸 MusicMates — Coming Soon</h2>
+            <p>
+                MusicMates is an innovative platform connecting music lovers through shared passion and creativity. 
+                Whether you're a musician looking for collaborators, a fan seeking concert buddies, or someone 
+                wanting to discover new music with like-minded people, MusicMates will bring you together. 
+                Stay tuned for the launch of a community where music truly connects hearts and minds.
+            </p>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Music Mates UK. All rights reserved.</p>
+            <p><a href="index.html">← Back to Home</a></p>
+        </footer>
+    </div>
+</body>
+</html>
