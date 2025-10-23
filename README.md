@@ -1,107 +1,65 @@
-# 🎵 Music Mates UK 🎵
+# Ideas landing (Wilfy1979 / musicmates-uk)
 
-Welcome to Music Mates UK - A music-themed dating and social platform connecting people through their shared love of music!
+This folder/page provides a public, timestamped registry of ideas and a simple notarization workflow. It includes:
 
-## 🎸 About
+- index.html — public landing page showing full idea texts (you chose public full-text publication).
+- ideas_hashes.md — public registry of SHA-256 hashes for each idea (update with computed hashes).
+- hash_ideas.js — local Node script to compute SHA-256 hashes from plain text files.
+- ideas_private_template.md — optional local template for private master copies (do NOT commit sensitive files you want to keep secret).
 
-Music Mates UK is a web-based platform designed to bring music lovers together. Whether you're looking for concert buddies, romantic connections, or just friends who share your musical taste, Music Mates UK helps you connect with like-minded people in your area.
+Important safety notes
+- You chose to publish full idea texts publicly. Anything you put in index.html will be visible to everyone.
+- Do NOT commit large binaries (MP4s) to the repository. Use embedded YouTube links instead.
+- If you want to keep the idea text secret while proving prior authorship, choose the hashed-only workflow (not used here).
 
-## ✨ Features
+How to compute hashes locally (recommended)
+1. Create a directory called `ideas_texts/`.
+2. For each idea published on index.html, create a plain text file (UTF-8) with the exact same full text. Example:
+   - ideas_texts/musicmates.txt
+   - ideas_texts/remaster-series.txt
+3. Run the Node script (requires Node.js):
+   - node hash_ideas.js
+   - The script prints lines like: `- musicmates | sha256: <hex>`
+4. Copy the hex digest into `ideas_hashes.md` next to the corresponding title and date.
+5. Commit and push the updated `ideas_hashes.md`. The commit SHA and timestamp combined with the published hash serve as evidence of prior authorship.
 
-- **User Profiles**: Create detailed profiles with your favorite bands, genres, and recent gig experiences
-- **Dating App Interface**: Swipe-style matching system to connect with other music lovers
-- **Gig Discovery**: Browse and express interest in upcoming concerts and live music events
-- **Location-Based**: Find matches in major UK cities including London, Manchester, Birmingham, Glasgow, and more
-- **Music Preferences**: Connect based on shared favorite bands and music genres
-- **Admin Tools**: Special creator/admin profile management
+Optional notarization with OpenTimestamps (OTS)
+OpenTimestamps provides an external timestamp anchored to Bitcoin. Steps (example):
 
-## 📁 Project Structure
+1. Install OpenTimestamps client:
+   - macOS (Homebrew): `brew install opentimestamps/opentimestamps/ots-client`
+   - Other OS: see https://opentimestamps.org
 
-- `index.html` - Main landing page with information about Music Mates UK
-- `signup.html` - Comprehensive user registration form
-- `app.html` - Interactive dating app with profile browsing and matching
-- `gigs.html` - Upcoming gigs and concerts listing
-- `admin/profile-creator.html` - Admin interface for creator profiles
-- `styles.css` - Main stylesheet with consistent branding
-- `script.js` - JavaScript functionality for the dating app
-- `The Open - Elevation.mp4` - Promotional video content
+2. Create a file containing the hex hash (or the idea text) locally:
+   - echo -n "hex-or-text" > stamp_input.txt
 
-## 🚀 Getting Started
+3. Create an OTS timestamp:
+   - If you stamp the raw idea text:
+     - `ots stamp idea.txt`
+     - This creates `idea.txt.ots`
+   - If you stamp a hash:
+     - `echo -n "<hex>" > idea-hash.txt`
+     - `ots stamp idea-hash.txt`
 
-1. Clone this repository
-2. Open `index.html` in your web browser
-3. Navigate to the Sign Up page to create your profile
-4. Fill in your details including:
-   - Name, age, and location
-   - Favorite bands (top 5)
-   - Preferred music genres
-   - Recent gig experiences
-   - What you're looking for (friends, dating, concert buddies, etc.)
-5. Browse profiles in the App section
-6. Check out upcoming gigs in your area
+4. To anchor immediately (attach to Bitcoin), use the calendar or delegated services described on the OTS docs. See https://opentimestamps.org for details.
 
-## 🎨 Design
+5. Verification later:
+   - `ots verify idea.txt` or `ots verify idea-hash.txt.ots`
 
-Music Mates UK features a distinctive black and yellow color scheme that represents the energy and vibrancy of the music scene. The interface is designed to be:
-- Clean and modern
-- Easy to navigate
-- Mobile-responsive
-- Focused on the music experience
+Alternatives to OTS:
+- Publish the hash in an immutable public place (e.g., a blockchain transaction or a public notarization service).
+- Use trusted third-party timestamping services (OriginStamp, GuardTime, etc).
 
-## 🛠️ Technologies Used
+What I prepared for you
+- A responsive index.html with:
+  - A YouTube subscribe button linking to your channel: https://www.youtube.com/@RJM-Music1979?sub_confirmation=1
+  - An embedded remaster player (the user-provided YouTube video has been embedded)
+  - Public full idea texts and visible SHA-256 placeholders to be replaced with computed hashes
+  - A "MusicMates — Coming soon" description of the project's potential.
+- ideas_hashes.md with placeholders and instructions.
+- ideas_private_template.md as a local master copy template.
+- hash_ideas.js to compute SHA-256 hashes locally.
+- Guidance above for notarization and verification.
 
-- HTML5
-- CSS3
-- JavaScript (Vanilla)
-- LocalStorage API for data persistence
-- Responsive design principles
-
-## 🌍 Supported Cities
-
-- London
-- Manchester
-- Birmingham
-- Glasgow
-- Liverpool
-- Edinburgh
-- Cardiff
-- Belfast
-- Bristol
-- Leeds
-- Sheffield
-- Newcastle
-
-## 🎵 Music Genres Supported
-
-Rock, Pop, Indie, Metal, Jazz, Classical, Electronic, Hip Hop, Country, Punk, Alternative, Blues, Reggae, Soul, Folk
-
-## 📱 Browser Compatibility
-
-Works on all modern browsers:
-- Google Chrome
-- Mozilla Firefox
-- Safari
-- Microsoft Edge
-
-## 🔮 Future Enhancements
-
-- Backend integration with database
-- Real-time messaging
-- Spotify/Apple Music integration
-- Advanced matching algorithms
-- Event ticketing integration
-- Mobile app versions
-- User photo uploads
-- Video chat for virtual concerts
-
-## 📄 License
-
-Copyright © 2025 Music Mates UK. All rights reserved.
-
-## 👥 Contributing
-
-This is a template repository. Feel free to fork and customize for your own music-themed social platform!
-
----
-
-**Find your perfect music match today! 🎸💕**
+Next steps
+- Review the files in branch feature/ideas-landing and open a pull request when ready.
