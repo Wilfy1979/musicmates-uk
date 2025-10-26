@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Where - Music Mates UK</title>
+    <style>
+        body {
+            background-color: black;
+            color: #FFD700;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            border: 2px solid yellow;
+            padding: 10px;
+            text-align: center;
+        }
+        nav {
+            margin: 20px 0;
+        }
+        nav a {
+            color: #FFD700;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: yellow;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        h1 {
+            text-align: center;
+            color: yellow;
+            margin-bottom: 2rem;
+        }
+        .section {
+            background-color: #333;
+            border: 2px solid yellow;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .section h2 {
+            color: yellow;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .city-card {
+            background-color: #222;
+            border: 2px solid yellow;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .city-card:hover {
+            transform: scale(1.05);
+            background-color: #444;
+        }
+        .city-card.selected {
+            background-color: yellow;
+            color: black;
+        }
+        .city-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+        .city-card p {
+            margin: 0.25rem 0;
+            font-size: 0.9rem;
+        }
+        .venues-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .venue-card {
+            background-color: #222;
+            border: 2px solid yellow;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+        .venue-card:hover {
+            transform: scale(1.05);
+        }
+        .venue-card h3 {
+            color: yellow;
+            margin-bottom: 1rem;
+        }
+        .venue-card p {
+            color: #FFD700;
+            margin: 0.5rem 0;
+        }
+        .venue-capacity {
+            background-color: yellow;
+            color: black;
+            padding: 3px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .venue-type {
+            background-color: #FFD700;
+            color: black;
+            padding: 3px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .filter-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .filter-button {
+            background-color: yellow;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .filter-button:hover {
+            background-color: #FFD700;
+        }
+        .filter-button.active {
+            background-color: #FFD700;
+        }
+        footer {
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Where - Music Mates UK</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="profile.html">Profile</a>
+            <a href="upload.html">Upload</a>
+            <a href="where.html">Where</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>🗺️ Discover Music Venues Across the UK</h1>
+
+            <div class="section">
+                <h2>📍 Select Your City</h2>
+                <div class="cities-grid" id="citiesGrid">
+                    <div class="city-card" data-city="London">
+                        <h3>🏛️ London</h3>
+                        <p>The O2, Wembley Stadium</p>
+                        <p>12+ venues</p>
+                    </div>
+                    <div class="city-card" data-city="Manchester">
+                        <h3>🎸 Manchester</h3>
+                        <p>Manchester Arena, Etihad</p>
+                        <p>8+ venues</p>
+                    </div>
+                    <div class="city-card" data-city="Birmingham">
+                        <h3>🎵 Birmingham</h3>
+                        <p>Birmingham Arena, Villa Park</p>
+                        <p>6+ venues</p>
+                    </div>
+                    <div class="city-card" data-city="Glasgow">
+                        <h3>🏴󐁧󐁢󐁳󐁣󐁴󐁿 Glasgow</h3>
+                        <p>Hampden Park, SSE Hydro</p>
+                        <p>5+ venues</p>
+                    </div>
+                    <div class="city-card" data-city="Liverpool">
+                        <h3>🎤 Liverpool</h3>
+                        <p>Anfield, Echo Arena</p>
+                        <p>5+ venues</p>
+                    </div>
+                    <div class="city-card" data-city="Edinburgh">
+                        <h3>🏴󐁧󐁢󐁳󐁣󐁴󐁿 Edinburgh</h3>
+                        <p>Usher Hall, Queen's Hall</p>
+                        <p>4+ venues</p>
+                    </div>
+                    <div class="city-card" data-city="Cardiff">
+                        <h3>🏴󐁧󐁢󐁷󐁬󐁳󐁿 Cardiff</h3>
+                        <p>Principality Stadium</p>
+                        <p>4+ venues</p>
+                    </div>
+                    <div class="city-card" data-city="Bristol">
+                        <h3>🎶 Bristol</h3>
+                        <p>Bristol Arena, Colston Hall</p>
+                        <p>4+ venues</p>
+                    </div>
+                    <div class="city-card" data-city="Newcastle">
+                        <h3>⚡ Newcastle</h3>
+                        <p>St. James' Park, Utilita</p>
+                        <p>3+ venues</p>
+                    </div>
+                    <div class="city-card" data-city="Leeds">
+                        <h3>🎸 Leeds</h3>
+                        <p>First Direct Arena</p>
+                        <p>3+ venues</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="venuesSection" style="display: none;">
+                <h2 id="venuesTitle">🎪 Top Venues</h2>
+                <div class="filter-section">
+                    <button class="filter-button active" data-filter="all">All Venues</button>
+                    <button class="filter-button" data-filter="arena">Arenas</button>
+                    <button class="filter-button" data-filter="stadium">Stadiums</button>
+                    <button class="filter-button" data-filter="theatre">Theatres</button>
+                    <button class="filter-button" data-filter="club">Clubs</button>
+                </div>
+                <div class="venues-list" id="venuesList"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Music Mates UK. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const venuesData = {
+            London: [
+                { name: "The O2 Arena", type: "arena", capacity: "20,000", address: "Peninsula Square, SE10 0DX" },
+                { name: "Wembley Stadium", type: "stadium", capacity: "90,000", address: "Wembley, HA9 0WS" },
+                { name: "Royal Albert Hall", type: "theatre", capacity: "5,272", address: "Kensington Gore, SW7 2AP" },
+                { name: "Roundhouse", type: "arena", capacity: "3,300", address: "Chalk Farm Road, NW1 8EH" },
+                { name: "Brixton Academy", type: "arena", capacity: "4,921", address: "Stockwell Road, SW9 9SL" }
+            ],
+            Manchester: [
+                { name: "Manchester Arena", type: "arena", capacity: "21,000", address: "Victoria Station, M3 1AR" },
+                { name: "Etihad Stadium", type: "stadium", capacity: "55,000", address: "Ashton New Road, M11 3FF" },
+                { name: "Old Trafford", type: "stadium", capacity: "74,000", address: "Sir Matt Busby Way, M16 0RA" },
+                { name: "The Ritz", type: "club", capacity: "1,500", address: "Whitworth Street West, M1 5NQ" }
+            ],
+            Birmingham: [
+                { name: "Birmingham Arena", type: "arena", capacity: "16,000", address: "King Edwards Road, B1 2AA" },
+                { name: "Villa Park", type: "stadium", capacity: "42,000", address: "Trinity Road, B6 6HE" },
+                { name: "Symphony Hall", type: "theatre", capacity: "2,262", address: "Broad Street, B1 2EA" },
+                { name: "O2 Institute", type: "club", capacity: "1,500", address: "Digbeth, B5 6DY" }
+            ],
+            Glasgow: [
+                { name: "Hampden Park", type: "stadium", capacity: "51,866", address: "Letherby Drive, G42 9BA" },
+                { name: "SSE Hydro", type: "arena", capacity: "13,000", address: "Exhibition Way, G3 8YW" },
+                { name: "Barrowland Ballroom", type: "club", capacity: "1,900", address: "Gallowgate, G1 5DZ" },
+                { name: "King Tut's Wah Wah Hut", type: "club", capacity: "350", address: "St Vincent Street, G2 5TF" }
+            ],
+            Liverpool: [
+                { name: "Anfield Stadium", type: "stadium", capacity: "54,000", address: "Anfield Road, L4 0TH" },
+                { name: "M&S Bank Arena", type: "arena", capacity: "11,000", address: "Kings Dock, L3 4FP" },
+                { name: "Philharmonic Hall", type: "theatre", capacity: "1,790", address: "Hope Street, L1 9BP" },
+                { name: "Cavern Club", type: "club", capacity: "350", address: "Mathew Street, L2 6RE" }
+            ],
+            Edinburgh: [
+                { name: "Usher Hall", type: "theatre", capacity: "2,200", address: "Lothian Road, EH1 2EA" },
+                { name: "The Queen's Hall", type: "theatre", capacity: "900", address: "Clerk Street, EH8 9JG" },
+                { name: "Murrayfield Stadium", type: "stadium", capacity: "67,144", address: "Roseburn Street, EH12 5PJ" },
+                { name: "The Liquid Room", type: "club", capacity: "440", address: "Victoria Street, EH1 2JL" }
+            ],
+            Cardiff: [
+                { name: "Principality Stadium", type: "stadium", capacity: "74,500", address: "Westgate Street, CF10 1NS" },
+                { name: "Motorpoint Arena", type: "arena", capacity: "7,500", address: "Mary Ann Street, CF10 2EQ" },
+                { name: "St David's Hall", type: "theatre", capacity: "1,800", address: "The Hayes, CF10 2EB" },
+                { name: "Tramshed", type: "club", capacity: "1,000", address: "Pendyris Street, CF11 6BH" }
+            ],
+            Bristol: [
+                { name: "Bristol Arena", type: "arena", capacity: "17,000", address: "Arena Island, BS1" },
+                { name: "Ashton Gate Stadium", type: "stadium", capacity: "27,000", address: "Ashton Road, BS3 2EJ" },
+                { name: "Colston Hall", type: "theatre", capacity: "1,951", address: "Colston Street, BS1 5AR" },
+                { name: "Thekla", type: "club", capacity: "400", address: "The Grove, BS1 4RB" }
+            ],
+            Newcastle: [
+                { name: "St. James' Park", type: "stadium", capacity: "52,305", address: "Barrack Road, NE1 4ST" },
+                { name: "Utilita Arena", type: "arena", capacity: "11,000", address: "Arena Way, NE4 7NA" },
+                { name: "Sage Gateshead", type: "theatre", capacity: "1,700", address: "St Mary's Square, NE8 2JR" }
+            ],
+            Leeds: [
+                { name: "First Direct Arena", type: "arena", capacity: "13,500", address: "Arena Way, LS2 8BY" },
+                { name: "Elland Road", type: "stadium", capacity: "37,890", address: "Elland Road, LS11 0ES" },
+                { name: "O2 Academy Leeds", type: "club", capacity: "2,600", address: "Cookridge Street, LS2 3AW" }
+            ]
+        };
+
+        let selectedCity = '';
+        let currentFilter = 'all';
+
+        // Handle city selection
+        document.querySelectorAll('.city-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove selected class from all cards
+                document.querySelectorAll('.city-card').forEach(c => c.classList.remove('selected'));
+                
+                // Add selected class to clicked card
+                this.classList.add('selected');
+                
+                // Get selected city
+                selectedCity = this.dataset.city;
+                
+                // Update title and show venues section
+                document.getElementById('venuesTitle').textContent = `🎪 Top Venues in ${selectedCity}`;
+                document.getElementById('venuesSection').style.display = 'block';
+                
+                // Display venues
+                displayVenues();
+                
+                // Scroll to venues section
+                document.getElementById('venuesSection').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Handle filter buttons
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-button').forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Get filter
+                currentFilter = this.dataset.filter;
+                
+                // Display filtered venues
+                displayVenues();
+            });
+        });
+
+        function displayVenues() {
+            if (!selectedCity) return;
+            
+            const venues = venuesData[selectedCity] || [];
+            const venuesList = document.getElementById('venuesList');
+            
+            // Filter venues
+            let filteredVenues = venues;
+            if (currentFilter !== 'all') {
+                filteredVenues = venues.filter(v => v.type === currentFilter);
+            }
+            
+            if (filteredVenues.length === 0) {
+                venuesList.innerHTML = '<p style="color: #FFD700; text-align: center; grid-column: 1/-1;">No venues found for this filter.</p>';
+                return;
+            }
+            
+            venuesList.innerHTML = filteredVenues.map(venue => `
+                <div class="venue-card">
+                    <h3>${venue.name}</h3>
+                    <p>📍 ${venue.address}</p>
+                    <p>👥 Capacity: ${venue.capacity}</p>
+                    <span class="venue-type">${venue.type.charAt(0).toUpperCase() + venue.type.slice(1)}</span>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
