@@ -7,6 +7,13 @@ const db = require('../db/database');
 router.use(authMiddleware);
 
 /**
+ * TODO: Add rate limiting middleware to protect against abuse
+ * Consider using express-rate-limit or similar package for production:
+ * - Limit requests per user per time window
+ * - Return 429 Too Many Requests when limit exceeded
+ */
+
+/**
  * POST /api/interests/:targetUserId
  * Create a new interest (pending) if not existing
  * Returns existing interest if duplicate pending interest exists
@@ -68,7 +75,7 @@ router.post('/:targetUserId', (req, res) => {
     });
   } catch (error) {
     // Handle unique constraint violation (race condition)
-    if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+    if (error && error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
       const interest = database.prepare(
         'SELECT id FROM interests WHERE sender_id = ? AND target_id = ?'
       ).get(senderId, targetUserId);
@@ -78,6 +85,8 @@ router.post('/:targetUserId', (req, res) => {
         duplicate: true
       });
     }
+    // Log error for debugging before re-throwing
+    console.error('Error creating interest:', error);
     throw error;
   }
 });
