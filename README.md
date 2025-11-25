@@ -154,7 +154,18 @@ Music Mates UK features a distinctive black and yellow color scheme that represe
 - Node.js with Express
 - better-sqlite3 for database
 - express-session for authentication
+- express-rate-limit for API rate limiting
 - helmet for security headers
+
+## 🔒 Security Notes
+
+This is a development scaffold. For production deployment, consider:
+
+- **CSRF Protection**: Add CSRF token validation for state-changing requests
+- **Content Security Policy**: Enable CSP in helmet configuration after refactoring inline scripts/styles
+- **HTTPS**: Enable secure cookies and use HTTPS in production
+- **Database**: Consider migrating to PostgreSQL for production scale
+- **Password Requirements**: Implement stronger password policies
 
 ## 🌍 Supported Cities
 
