@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interests - Music Mates UK</title>
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-bar">
+            <a href="index.html" class="brand">🎵 Music Mates UK</a>
+            <ul class="nav-links">
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="interests.html">Interests</a></li>
+                <li><a href="app.html">App</a></li>
+                <li><a href="gigs.html">Gigs</a></li>
+                <li><a href="where.html">Where</a></li>
+                <li><button id="themeToggle">Light</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="text-center mb-2">Your Music Interests</h1>
+            
+            <section class="features">
+                <h2 class="text-center">Gigs You're Interested In</h2>
+                <div class="grid-3" id="interestedGigsList">
+                    <p class="text-muted text-center">No gigs saved yet. Browse the <a href="gigs.html">Gigs</a> page to find events!</p>
+                </div>
+            </section>
+
+            <section class="features">
+                <h2 class="text-center">Your Favorite Genres</h2>
+                <div id="favoriteGenres" class="text-center">
+                    <p class="text-muted">Complete your <a href="signup.html">profile</a> to show your favorite genres.</p>
+                </div>
+            </section>
+
+            <section class="features">
+                <h2 class="text-center">Your Favorite Bands</h2>
+                <div id="favoriteBands" class="text-center">
+                    <p class="text-muted">Complete your <a href="signup.html">profile</a> to show your favorite bands.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; <span id="year"></span> Music Mates UK. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dynamic year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('theme-light');
+            if (document.body.classList.contains('theme-light')) {
+                themeToggle.textContent = 'Dark';
+            } else {
+                themeToggle.textContent = 'Light';
+            }
+        });
+
+        // Load interests from localStorage
+        window.addEventListener('DOMContentLoaded', () => {
+            // Load interested gigs
+            const interestedGigs = JSON.parse(localStorage.getItem('interestedGigs') || '[]');
+            const gigsContainer = document.getElementById('interestedGigsList');
+            
+            if (interestedGigs.length > 0) {
+                gigsContainer.innerHTML = interestedGigs.map(gig => `
+                    <article class="card">
+                        <h3>🎸 ${gig}</h3>
+                        <p>You're interested in this gig!</p>
+                    </article>
+                `).join('');
+            }
+
+            // Load profile data
+            const signupData = localStorage.getItem('signupData');
+            if (signupData) {
+                const data = JSON.parse(signupData);
+                
+                // Display genres
+                if (data.genres && data.genres.length > 0) {
+                    const genresContainer = document.getElementById('favoriteGenres');
+                    genresContainer.innerHTML = data.genres.map(genre => 
+                        `<span class="badge">${genre}</span>`
+                    ).join(' ');
+                }
+                
+                // Display bands
+                if (data.favoriteBands && data.favoriteBands.length > 0) {
+                    const bandsContainer = document.getElementById('favoriteBands');
+                    const validBands = data.favoriteBands.filter(band => band && band.trim());
+                    if (validBands.length > 0) {
+                        bandsContainer.innerHTML = validBands.map(band => 
+                            `<span class="badge">${band}</span>`
+                        ).join(' ');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
