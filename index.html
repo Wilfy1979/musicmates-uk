@@ -4,56 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Mates UK</title>
-    <style>
-        body {
-            background-color: black;
-            color: #FFD700;
-            font-family: Arial, sans-serif;
-        }
-        header, footer {
-            border: 2px solid yellow;
-            padding: 10px;
-            text-align: center;
-        }
-        nav {
-            margin: 20px 0;
-        }
-        nav a {
-            color: #FFD700;
-            margin: 0 15px;
-            text-decoration: none;
-        }
-        .video-showcase {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .video-showcase iframe {
-            border: 2px solid yellow;
-            width: 80%;
-            height: 400px;
-        }
-    </style>
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to Music Mates UK</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="profile.html">Profile</a>
-            <a href="upload.html">Upload</a>
-            <a href="where.html">Where</a>
+    <header class="site-header">
+        <nav class="nav-bar">
+            <a href="index.html" class="brand">🎵 Music Mates UK</a>
+            <ul class="nav-links">
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="interests.html">Interests</a></li>
+                <li><a href="app.html">App</a></li>
+                <li><a href="gigs.html">Gigs</a></li>
+                <li><a href="where.html">Where</a></li>
+                <li><button id="themeToggle">Light</button></li>
+            </ul>
         </nav>
     </header>
 
     <main>
-        <section class="video-showcase">
-            <iframe src="https://www.youtube.com/embed/example" frameborder="0" allowfullscreen></iframe>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Connect with Music Lovers Near You</h1>
+                    <p>Find your perfect concert buddy, discover new bands together, and never attend a gig alone again. Music Mates UK brings music fans together across the UK.</p>
+                    <a href="signup.html" class="btn btn-primary btn-lg">Get Started</a>
+                </div>
+                <div class="hero-media">
+                    <iframe src="https://www.youtube.com/embed/example" title="Music Mates UK Introduction Video" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2>Why Music Mates?</h2>
+                <div class="grid-3">
+                    <article class="card">
+                        <h3>🎸 Find Gig Buddies</h3>
+                        <p>Match with people who share your taste in music and never miss a concert because you have no one to go with.</p>
+                    </article>
+                    <article class="card">
+                        <h3>🎤 Discover New Artists</h3>
+                        <p>Get recommendations from real music fans and expand your playlist with hidden gems from across the UK.</p>
+                    </article>
+                    <article class="card">
+                        <h3>📍 Local Events</h3>
+                        <p>Stay updated on upcoming gigs, festivals, and music events happening in your city and beyond.</p>
+                    </article>
+                </div>
+            </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2023 Music Mates UK. All rights reserved.</p>
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; <span id="year"></span> Music Mates UK. All rights reserved.</p>
+        </div>
     </footer>
+
+    <script>
+        // Dynamic year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('theme-light');
+            if (document.body.classList.contains('theme-light')) {
+                themeToggle.textContent = 'Dark';
+            } else {
+                themeToggle.textContent = 'Light';
+            }
+        });
+    </script>
 </body>
 </html>

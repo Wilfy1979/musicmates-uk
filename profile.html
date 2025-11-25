@@ -4,101 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - Music Mates UK</title>
-    <style>
-        body {
-            background-color: black;
-            color: #FFD700;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        header, footer {
-            border: 2px solid yellow;
-            padding: 10px;
-            text-align: center;
-        }
-        nav {
-            margin: 20px 0;
-        }
-        nav a {
-            color: #FFD700;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        nav a:hover {
-            color: yellow;
-        }
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-        }
-        .profile-section {
-            background-color: #333;
-            border: 2px solid yellow;
-            border-radius: 10px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        .profile-section h2 {
-            color: yellow;
-            margin-bottom: 1rem;
-        }
-        .profile-field {
-            margin: 1rem 0;
-            color: #FFD700;
-        }
-        .profile-field label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-        .profile-field p {
-            margin: 0.5rem 0;
-        }
-        .badge {
-            background-color: yellow;
-            color: black;
-            padding: 5px 10px;
-            border-radius: 5px;
-            display: inline-block;
-            margin: 5px;
-            font-size: 0.9rem;
-        }
-        .button {
-            background-color: yellow;
-            border: none;
-            color: black;
-            padding: 10px 20px;
-            margin: 5px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .button:hover {
-            background-color: #FFD700;
-        }
-        footer {
-            margin-top: 3rem;
-        }
-    </style>
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>My Profile - Music Mates UK</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="profile.html">Profile</a>
-            <a href="upload.html">Upload</a>
-            <a href="where.html">Where</a>
+    <header class="site-header">
+        <nav class="nav-bar">
+            <a href="index.html" class="brand">🎵 Music Mates UK</a>
+            <ul class="nav-links">
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="interests.html">Interests</a></li>
+                <li><a href="app.html">App</a></li>
+                <li><a href="gigs.html">Gigs</a></li>
+                <li><a href="where.html">Where</a></li>
+                <li><button id="themeToggle">Light</button></li>
+            </ul>
         </nav>
     </header>
 
     <main>
         <div class="container">
+            <h1 class="text-center mb-2">My Profile</h1>
+            
             <div class="profile-section">
                 <h2>👤 Personal Information</h2>
                 <div class="profile-field">
@@ -162,17 +93,33 @@
                 </div>
             </div>
 
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="signup.html" class="button">Edit Profile</a>
+            <div class="text-center mt-2">
+                <a href="signup.html" class="btn btn-primary">Edit Profile</a>
             </div>
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2023 Music Mates UK. All rights reserved.</p>
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; <span id="year"></span> Music Mates UK. All rights reserved.</p>
+        </div>
     </footer>
 
     <script>
+        // Dynamic year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('theme-light');
+            if (document.body.classList.contains('theme-light')) {
+                themeToggle.textContent = 'Dark';
+            } else {
+                themeToggle.textContent = 'Light';
+            }
+        });
+
         // Load profile data from localStorage
         window.addEventListener('DOMContentLoaded', () => {
             const signupData = localStorage.getItem('signupData');
