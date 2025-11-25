@@ -9,6 +9,11 @@ const browseRoutes = require('./routes/browse');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Validate SESSION_SECRET in production
+if (process.env.NODE_ENV === 'production' && !process.env.SESSION_SECRET) {
+  throw new Error('SESSION_SECRET environment variable must be set in production');
+}
 const SESSION_SECRET = process.env.SESSION_SECRET || 'dev-secret-change-me';
 
 // Security middleware

@@ -3,6 +3,23 @@ const { getDb } = require('../lib/db');
 
 const router = express.Router();
 
+// Interest type constants
+const INTEREST_TYPE_GENRE = 'genre';
+
+/**
+ * Safe JSON parse with fallback
+ * @param {string} str - JSON string to parse
+ * @param {*} fallback - Fallback value if parsing fails
+ * @returns {*} Parsed value or fallback
+ */
+function safeJsonParse(str, fallback = []) {
+  try {
+    return JSON.parse(str || JSON.stringify(fallback));
+  } catch (_error) {
+    return fallback;
+  }
+}
+
 /**
  * Authentication middleware
  */
@@ -123,7 +140,7 @@ router.post('/upsert', requireAuth, (req, res) => {
     if (genres && Array.isArray(genres)) {
       // Remove existing genre interests
       db.prepare(
-        'DELETE FROM interests WHERE profile_id = ? AND type = \'genre\''
+        `DELETE FROM interests WHERE profile_id = ? AND type = '${INTEREST_TYPE_GENRE}'`
       ).run(profileId);
 
       // Add new genre interests
@@ -131,7 +148,7 @@ router.post('/upsert', requireAuth, (req, res) => {
         'INSERT INTO interests (profile_id, type, value) VALUES (?, ?, ?)'
       );
       for (const genre of genres) {
-        insertInterest.run(profileId, 'genre', genre);
+        insertInterest.run(profileId, INTEREST_TYPE_GENRE, genre);
       }
     }
 
@@ -171,7 +188,7 @@ router.get('/mine', requireAuth, (req, res) => {
       .prepare('SELECT type, value FROM interests WHERE profile_id = ?')
       .all(profile.id);
 
-    // Parse JSON fields
+    // Parse JSON fields safely
     const formattedProfile = {
       id: profile.id,
       email: profile.email,
@@ -182,8 +199,8 @@ router.get('/mine', requireAuth, (req, res) => {
       postcode: profile.postcode,
       bio: profile.bio,
       instruments: profile.instruments,
-      favoriteBands: JSON.parse(profile.favorite_bands || '[]'),
-      lookingFor: JSON.parse(profile.looking_for || '[]'),
+      favoriteBands: safeJsonParse(profile.favorite_bands, []),
+      lookingFor: safeJsonParse(profile.looking_for, []),
       photoUrl: profile.photo_url,
       lastGig: {
         band: profile.last_gig_band,
@@ -193,7 +210,7 @@ router.get('/mine', requireAuth, (req, res) => {
         rating: profile.last_gig_rating,
       },
       genres: interests
-        .filter((i) => i.type === 'genre')
+        .filter((i) => i.type === INTEREST_TYPE_GENRE)
         .map((i) => i.value),
       createdAt: profile.created_at,
       updatedAt: profile.updated_at,

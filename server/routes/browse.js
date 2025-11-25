@@ -3,6 +3,23 @@ const { getDb } = require('../lib/db');
 
 const router = express.Router();
 
+// Interest type constant
+const INTEREST_TYPE_GENRE = 'genre';
+
+/**
+ * Safe JSON parse with fallback
+ * @param {string} str - JSON string to parse
+ * @param {*} fallback - Fallback value if parsing fails
+ * @returns {*} Parsed value or fallback
+ */
+function safeJsonParse(str, fallback = []) {
+  try {
+    return JSON.parse(str || JSON.stringify(fallback));
+  } catch (_error) {
+    return fallback;
+  }
+}
+
 /**
  * GET /api/browse
  * List profiles with optional filters
@@ -27,7 +44,7 @@ router.get('/', (req, res) => {
     // Join with interests if filtering by genre
     if (genre) {
       query += ' JOIN interests i ON i.profile_id = p.id';
-      conditions.push('i.type = \'genre\' AND i.value = ?');
+      conditions.push(`i.type = '${INTEREST_TYPE_GENRE}' AND i.value = ?`);
       params.push(genre);
     }
 
@@ -54,16 +71,28 @@ router.get('/', (req, res) => {
 
     const profiles = db.prepare(query).all(...params);
 
+    // Bulk fetch all genres for all profiles to avoid N+1 queries
+    const profileIds = profiles.map((p) => p.id);
+    const genresMap = {};
+
+    if (profileIds.length > 0) {
+      const placeholders = profileIds.map(() => '?').join(',');
+      const allGenres = db
+        .prepare(
+          `SELECT profile_id, value FROM interests WHERE profile_id IN (${placeholders}) AND type = '${INTEREST_TYPE_GENRE}'`
+        )
+        .all(...profileIds);
+
+      for (const genre of allGenres) {
+        if (!genresMap[genre.profile_id]) {
+          genresMap[genre.profile_id] = [];
+        }
+        genresMap[genre.profile_id].push(genre.value);
+      }
+    }
+
     // Format profiles for response
     const formattedProfiles = profiles.map((profile) => {
-      // Get genres for this profile
-      const genres = db
-        .prepare(
-          'SELECT value FROM interests WHERE profile_id = ? AND type = \'genre\''
-        )
-        .all(profile.id)
-        .map((i) => i.value);
-
       return {
         id: profile.id,
         name: profile.name,
@@ -72,14 +101,14 @@ router.get('/', (req, res) => {
         city: profile.city,
         bio: profile.bio,
         instruments: profile.instruments,
-        favoriteBands: JSON.parse(profile.favorite_bands || '[]'),
-        lookingFor: JSON.parse(profile.looking_for || '[]'),
+        favoriteBands: safeJsonParse(profile.favorite_bands, []),
+        lookingFor: safeJsonParse(profile.looking_for, []),
         lastGig: {
           band: profile.last_gig_band,
           venue: profile.last_gig_venue,
         },
         photoUrl: profile.photo_url,
-        genres,
+        genres: genresMap[profile.id] || [],
         createdAt: profile.created_at,
       };
     });
