@@ -17,28 +17,121 @@ Music Mates UK is a web-based platform designed to bring music lovers together. 
 
 ## 📁 Project Structure
 
-- `index.html` - Main landing page with information about Music Mates UK
-- `signup.html` - Comprehensive user registration form
-- `app.html` - Interactive dating app with profile browsing and matching
-- `gigs.html` - Upcoming gigs and concerts listing
-- `admin/profile-creator.html` - Admin interface for creator profiles
-- `styles.css` - Main stylesheet with consistent branding
-- `script.js` - JavaScript functionality for the dating app
-- `The Open - Elevation.mp4` - Promotional video content
+```
+musicmates-uk/
+├── server/                 # Backend Express application
+│   ├── index.js           # Main server entry point
+│   ├── migrate.js         # Database migration script
+│   ├── lib/
+│   │   └── db.js          # Database helper (better-sqlite3)
+│   └── routes/
+│       ├── auth.js        # Authentication routes
+│       ├── profiles.js    # Profile management routes
+│       └── browse.js      # Browse/search profiles routes
+├── public/                # Static files served by Express
+│   ├── index.html         # Main landing page
+│   ├── signup.html        # User registration form
+│   ├── app.html           # Dating app with profile browsing
+│   ├── gigs.html          # Upcoming gigs listing
+│   ├── profile.html       # User profile page
+│   ├── upload.html        # Content upload page
+│   ├── where.html         # Venue discovery page
+│   ├── styles.css         # Main stylesheet
+│   ├── script.js          # Dating app JavaScript
+│   ├── js/
+│   │   └── app.js         # Progressive enhancement script
+│   └── admin/
+│       └── profile-creator.html
+├── data/                  # Database directory (auto-created)
+├── package.json           # Node.js dependencies and scripts
+├── .env.example           # Environment variables template
+├── .eslintrc.json         # ESLint configuration
+├── .prettierrc            # Prettier configuration
+└── .editorconfig          # Editor configuration
+```
 
 ## 🚀 Getting Started
 
+### Prerequisites
+
+- Node.js 18+ and npm
+
+### Installation
+
 1. Clone this repository
-2. Open `index.html` in your web browser
-3. Navigate to the Sign Up page to create your profile
-4. Fill in your details including:
+   ```bash
+   git clone https://github.com/Wilfy1979/musicmates-uk.git
+   cd musicmates-uk
+   ```
+
+2. Install dependencies
+   ```bash
+   npm install
+   ```
+
+3. Create environment file
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Edit `.env` and set a secure `SESSION_SECRET`:
+   ```
+   SESSION_SECRET=your-secure-random-string-here
+   PORT=3000
+   DB_FILE=data/musicmates.db
+   ```
+
+5. Run database migrations
+   ```bash
+   npm run migrate
+   ```
+
+6. Start the server
+   ```bash
+   npm run dev
+   ```
+
+7. Open http://localhost:3000 in your browser
+
+### Available Scripts
+
+- `npm run dev` - Start the development server
+- `npm start` - Start the production server
+- `npm run migrate` - Run database migrations
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Fix ESLint issues
+- `npm run format` - Format code with Prettier
+
+## 🔌 API Endpoints
+
+### Health Check
+- `GET /health` - Returns `{ ok: true }`
+
+### Authentication
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login an existing user
+- `POST /api/auth/logout` - Logout current user
+- `GET /api/auth/me` - Get current user info
+
+### Profiles
+- `POST /api/profiles/upsert` - Create or update profile (requires auth)
+- `GET /api/profiles/mine` - Get current user's profile (requires auth)
+
+### Browse
+- `GET /api/browse` - List profiles with optional filters
+  - Query params: `instrument`, `genre`, `location`, `limit`, `offset`
+
+## 🎯 Using the App
+
+1. Navigate to the Sign Up page to create your profile
+2. Fill in your details including:
    - Name, age, and location
    - Favorite bands (top 5)
    - Preferred music genres
    - Recent gig experiences
    - What you're looking for (friends, dating, concert buddies, etc.)
-5. Browse profiles in the App section
-6. Check out upcoming gigs in your area
+3. Browse profiles in the App section
+4. Check out upcoming gigs in your area
 
 ## 🎨 Design
 
@@ -50,11 +143,18 @@ Music Mates UK features a distinctive black and yellow color scheme that represe
 
 ## 🛠️ Technologies Used
 
+### Frontend
 - HTML5
 - CSS3
 - JavaScript (Vanilla)
 - LocalStorage API for data persistence
 - Responsive design principles
+
+### Backend
+- Node.js with Express
+- better-sqlite3 for database
+- express-session for authentication
+- helmet for security headers
 
 ## 🌍 Supported Cities
 
@@ -85,7 +185,6 @@ Works on all modern browsers:
 
 ## 🔮 Future Enhancements
 
-- Backend integration with database
 - Real-time messaging
 - Spotify/Apple Music integration
 - Advanced matching algorithms
@@ -93,6 +192,7 @@ Works on all modern browsers:
 - Mobile app versions
 - User photo uploads
 - Video chat for virtual concerts
+- Migration to PostgreSQL for production
 
 ## 📄 License
 
