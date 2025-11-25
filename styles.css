@@ -35,6 +35,24 @@ body {
     padding: 0;
 }
 
+/* Page Headings */
+.page-heading {
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+/* Section Headings */
+.section-heading {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Section Spacing */
+.section-spacing {
+    margin-top: var(--spacing-xl);
+}
+
 /* Navigation Bar */
 .navbar {
     background-color: black;
