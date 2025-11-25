@@ -4,56 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Mates UK</title>
-    <style>
-        body {
-            background-color: black;
-            color: #FFD700;
-            font-family: Arial, sans-serif;
-        }
-        header, footer {
-            border: 2px solid yellow;
-            padding: 10px;
-            text-align: center;
-        }
-        nav {
-            margin: 20px 0;
-        }
-        nav a {
-            color: #FFD700;
-            margin: 0 15px;
-            text-decoration: none;
-        }
-        .video-showcase {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .video-showcase iframe {
-            border: 2px solid yellow;
-            width: 80%;
-            height: 400px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
+    <header class="site-header">
         <h1>Welcome to Music Mates UK</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="profile.html">Profile</a>
-            <a href="upload.html">Upload</a>
-            <a href="where.html">Where</a>
+        <button class="nav-toggle" aria-controls="nav-panel" aria-expanded="false" aria-label="Toggle navigation menu">
+            <span class="hamburger"></span>
+        </button>
+        <nav id="nav-panel" class="nav-panel">
+            <ul class="nav-links">
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="interests.html">Interests</a></li>
+                <li><a href="app.html">App</a></li>
+                <li><a href="gigs.html">Gigs</a></li>
+                <li><a href="where.html">Where</a></li>
+            </ul>
+            <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
         </nav>
     </header>
 
     <main>
-        <section class="video-showcase">
-            <iframe src="https://www.youtube.com/embed/example" frameborder="0" allowfullscreen></iframe>
+        <section class="video-showcase" style="padding: var(--spacing-xl);">
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://www.youtube-nocookie.com/embed/fqVJvjKeW7s?modestbranding=1&rel=0" 
+                    title="Music Mates UK - Introduction Video"
+                    loading="lazy"
+                    allowfullscreen>
+                </iframe>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2023 Music Mates UK. All rights reserved.</p>
+        <p>&copy; <span id="current-year">2025</span> Music Mates UK. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Mobile navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navPanel = document.getElementById('nav-panel');
+        const body = document.body;
+        let lastFocusedElement = null;
+
+        function openNav() {
+            lastFocusedElement = document.activeElement;
+            body.classList.add('nav-open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            // Focus first link in nav
+            const firstLink = navPanel.querySelector('a');
+            if (firstLink) firstLink.focus();
+        }
+
+        function closeNav() {
+            body.classList.remove('nav-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            if (lastFocusedElement) lastFocusedElement.focus();
+        }
+
+        navToggle.addEventListener('click', () => {
+            const isOpen = body.classList.contains('nav-open');
+            if (isOpen) {
+                closeNav();
+            } else {
+                openNav();
+            }
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && body.classList.contains('nav-open')) {
+                closeNav();
+            }
+        });
+
+        // Focus trapping when nav is open
+        navPanel.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' && body.classList.contains('nav-open')) {
+                const focusableElements = navPanel.querySelectorAll('a, button');
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        });
+
+        // Dynamic year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
