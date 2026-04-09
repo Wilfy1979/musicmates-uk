@@ -4,36 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - Music Mates UK</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            background-color: black;
-            color: #FFD700;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        header, footer {
-            border: 2px solid yellow;
-            padding: 10px;
-            text-align: center;
-        }
-        nav {
-            margin: 20px 0;
-        }
-        nav a {
-            color: #FFD700;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        nav a:hover {
-            color: yellow;
-        }
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-        }
         .profile-section {
             background-color: #333;
             border: 2px solid yellow;
@@ -66,34 +38,24 @@
             margin: 5px;
             font-size: 0.9rem;
         }
-        .button {
-            background-color: yellow;
-            border: none;
-            color: black;
-            padding: 10px 20px;
-            margin: 5px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .button:hover {
-            background-color: #FFD700;
-        }
-        footer {
-            margin-top: 3rem;
-        }
     </style>
 </head>
 <body>
-    <header>
+    <header class="site-header">
         <h1>My Profile - Music Mates UK</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="profile.html">Profile</a>
-            <a href="upload.html">Upload</a>
-            <a href="where.html">Where</a>
+        <button class="nav-toggle" aria-controls="nav-panel" aria-expanded="false" aria-label="Toggle navigation menu">
+            <span class="hamburger"></span>
+        </button>
+        <nav id="nav-panel" class="nav-panel">
+            <ul class="nav-links">
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="interests.html">Interests</a></li>
+                <li><a href="app.html">App</a></li>
+                <li><a href="gigs.html">Gigs</a></li>
+                <li><a href="where.html">Where</a></li>
+            </ul>
+            <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
         </nav>
     </header>
 
@@ -163,76 +125,127 @@
             </div>
 
             <div style="text-align: center; margin-top: 2rem;">
-                <a href="signup.html" class="button">Edit Profile</a>
+                <a href="signup.html" class="btn btn-primary">Edit Profile</a>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2023 Music Mates UK. All rights reserved.</p>
+        <p>&copy; <span id="current-year">2025</span> Music Mates UK. All rights reserved.</p>
     </footer>
 
     <script>
-        // Load profile data from localStorage
-        window.addEventListener('DOMContentLoaded', () => {
-            const signupData = localStorage.getItem('signupData');
-            
-            if (signupData) {
-                const data = JSON.parse(signupData);
-                
-                // Personal information
-                document.getElementById('profile-name').textContent = data.name || 'Not set';
-                document.getElementById('profile-age').textContent = data.age || 'Not set';
-                document.getElementById('profile-city').textContent = data.city || 'Not set';
-                document.getElementById('profile-email').textContent = data.email || 'Not set';
-                
-                // Favorite bands
-                if (data.favoriteBands && data.favoriteBands.length > 0) {
-                    const bandsContainer = document.getElementById('profile-bands');
-                    bandsContainer.innerHTML = '';
-                    data.favoriteBands.forEach(band => {
-                        if (band && band.trim()) {
-                            const badge = document.createElement('span');
-                            badge.className = 'badge';
-                            badge.textContent = band;
-                            bandsContainer.appendChild(badge);
-                        }
-                    });
-                }
-                
-                // Genres
-                if (data.genres && data.genres.length > 0) {
-                    const genresContainer = document.getElementById('profile-genres');
-                    genresContainer.innerHTML = '';
-                    data.genres.forEach(genre => {
-                        const badge = document.createElement('span');
-                        badge.className = 'badge';
-                        badge.textContent = genre;
-                        genresContainer.appendChild(badge);
-                    });
-                }
-                
-                // Last gig
-                if (data.lastGig) {
-                    document.getElementById('profile-lastgig-band').textContent = data.lastGig.band || 'Not set';
-                    document.getElementById('profile-lastgig-venue').textContent = data.lastGig.venue || 'Not set';
-                    document.getElementById('profile-lastgig-date').textContent = data.lastGig.date || 'Not set';
-                    document.getElementById('profile-lastgig-location').textContent = data.lastGig.location || 'Not set';
-                }
-                
-                // Looking for
-                if (data.lookingFor && data.lookingFor.length > 0) {
-                    const lookingForContainer = document.getElementById('profile-looking-for');
-                    lookingForContainer.innerHTML = '';
-                    data.lookingFor.forEach(item => {
-                        const badge = document.createElement('span');
-                        badge.className = 'badge';
-                        badge.textContent = item;
-                        lookingForContainer.appendChild(badge);
-                    });
+        // Mobile navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navPanel = document.getElementById('nav-panel');
+        const body = document.body;
+        let lastFocusedElement = null;
+
+        function openNav() {
+            lastFocusedElement = document.activeElement;
+            body.classList.add('nav-open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            const firstLink = navPanel.querySelector('a');
+            if (firstLink) firstLink.focus();
+        }
+
+        function closeNav() {
+            body.classList.remove('nav-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            if (lastFocusedElement) lastFocusedElement.focus();
+        }
+
+        navToggle.addEventListener('click', () => {
+            const isOpen = body.classList.contains('nav-open');
+            if (isOpen) {
+                closeNav();
+            } else {
+                openNav();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && body.classList.contains('nav-open')) {
+                closeNav();
+            }
+        });
+
+        navPanel.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' && body.classList.contains('nav-open')) {
+                const focusableElements = navPanel.querySelectorAll('a, button');
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
                 }
             }
         });
+
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Load profile data from localStorage
+        const signupData = localStorage.getItem('signupData');
+        
+        if (signupData) {
+            const data = JSON.parse(signupData);
+            
+            // Personal information
+            document.getElementById('profile-name').textContent = data.name || 'Not set';
+            document.getElementById('profile-age').textContent = data.age || 'Not set';
+            document.getElementById('profile-city').textContent = data.city || 'Not set';
+            document.getElementById('profile-email').textContent = data.email || 'Not set';
+            
+            // Favorite bands
+            if (data.favoriteBands && data.favoriteBands.length > 0) {
+                const bandsContainer = document.getElementById('profile-bands');
+                bandsContainer.innerHTML = '';
+                data.favoriteBands.forEach(band => {
+                    if (band && band.trim()) {
+                        const badge = document.createElement('span');
+                        badge.className = 'badge';
+                        badge.textContent = band;
+                        bandsContainer.appendChild(badge);
+                    }
+                });
+            }
+            
+            // Genres
+            if (data.genres && data.genres.length > 0) {
+                const genresContainer = document.getElementById('profile-genres');
+                genresContainer.innerHTML = '';
+                data.genres.forEach(genre => {
+                    const badge = document.createElement('span');
+                    badge.className = 'badge';
+                    badge.textContent = genre;
+                    genresContainer.appendChild(badge);
+                });
+            }
+            
+            // Last gig
+            if (data.lastGig) {
+                document.getElementById('profile-lastgig-band').textContent = data.lastGig.band || 'Not set';
+                document.getElementById('profile-lastgig-venue').textContent = data.lastGig.venue || 'Not set';
+                document.getElementById('profile-lastgig-date').textContent = data.lastGig.date || 'Not set';
+                document.getElementById('profile-lastgig-location').textContent = data.lastGig.location || 'Not set';
+            }
+            
+            // Looking for
+            if (data.lookingFor && data.lookingFor.length > 0) {
+                const lookingForContainer = document.getElementById('profile-looking-for');
+                lookingForContainer.innerHTML = '';
+                data.lookingFor.forEach(item => {
+                    const badge = document.createElement('span');
+                    badge.className = 'badge';
+                    badge.textContent = item;
+                    lookingForContainer.appendChild(badge);
+                });
+            }
+        }
     </script>
 </body>
 </html>

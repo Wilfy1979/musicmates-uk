@@ -4,39 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upcoming Gigs - Music Mates UK</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            background-color: black;
-            color: yellow;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar {
-            background-color: black;
-            border-bottom: 2px solid yellow;
-            padding: 1rem;
-            text-align: center;
-        }
-        .navbar a {
-            color: yellow;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .navbar a:hover {
-            color: #FFD700;
-        }
-        .container {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h1 {
-            text-align: center;
-            color: yellow;
-            margin-bottom: 2rem;
-        }
         .gig-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -90,23 +59,26 @@
         .interested-btn:hover {
             background-color: #FFD700;
         }
-        footer {
-            background-color: black;
-            border-top: 2px solid yellow;
-            padding: 1rem;
-            text-align: center;
-            color: yellow;
-            margin-top: 3rem;
-        }
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <a href="index.html">Home</a>
-        <a href="profile.html">Profile</a>
-        <a href="upload.html">Upload</a>
-        <a href="where.html">Where</a>
-    </div>
+    <header class="site-header">
+        <h1>Upcoming Gigs - Music Mates UK</h1>
+        <button class="nav-toggle" aria-controls="nav-panel" aria-expanded="false" aria-label="Toggle navigation menu">
+            <span class="hamburger"></span>
+        </button>
+        <nav id="nav-panel" class="nav-panel">
+            <ul class="nav-links">
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="interests.html">Interests</a></li>
+                <li><a href="app.html">App</a></li>
+                <li><a href="gigs.html">Gigs</a></li>
+                <li><a href="where.html">Where</a></li>
+            </ul>
+            <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        </nav>
+    </header>
 
     <div class="container">
         <h1>🎸 Upcoming Gigs in Your Area 🎸</h1>
@@ -196,10 +168,63 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Music Mates UK. All rights reserved.</p>
+        <p>&copy; <span id="current-year">2025</span> Music Mates UK. All rights reserved.</p>
     </footer>
 
     <script>
+        // Mobile navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navPanel = document.getElementById('nav-panel');
+        const body = document.body;
+        let lastFocusedElement = null;
+
+        function openNav() {
+            lastFocusedElement = document.activeElement;
+            body.classList.add('nav-open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            const firstLink = navPanel.querySelector('a');
+            if (firstLink) firstLink.focus();
+        }
+
+        function closeNav() {
+            body.classList.remove('nav-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            if (lastFocusedElement) lastFocusedElement.focus();
+        }
+
+        navToggle.addEventListener('click', () => {
+            const isOpen = body.classList.contains('nav-open');
+            if (isOpen) {
+                closeNav();
+            } else {
+                openNav();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && body.classList.contains('nav-open')) {
+                closeNav();
+            }
+        });
+
+        navPanel.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' && body.classList.contains('nav-open')) {
+                const focusableElements = navPanel.querySelectorAll('a, button');
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        });
+
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
         // Handle "I'm Interested" button clicks
         document.querySelectorAll('.interested-btn').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -222,17 +247,15 @@
         });
 
         // Check if user has already marked interest
-        window.addEventListener('DOMContentLoaded', () => {
-            const interestedGigs = JSON.parse(localStorage.getItem('interestedGigs') || '[]');
-            document.querySelectorAll('.gig-card').forEach(card => {
-                const bandName = card.querySelector('h2').textContent;
-                if (interestedGigs.includes(bandName)) {
-                    const btn = card.querySelector('.interested-btn');
-                    btn.textContent = '✓ Interested';
-                    btn.style.backgroundColor = '#4CAF50';
-                    btn.style.color = 'white';
-                }
-            });
+        const interestedGigs = JSON.parse(localStorage.getItem('interestedGigs') || '[]');
+        document.querySelectorAll('.gig-card').forEach(card => {
+            const bandName = card.querySelector('h2').textContent;
+            if (interestedGigs.includes(bandName)) {
+                const btn = card.querySelector('.interested-btn');
+                btn.textContent = '✓ Interested';
+                btn.style.backgroundColor = '#4CAF50';
+                btn.style.color = 'white';
+            }
         });
     </script>
 </body>

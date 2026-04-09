@@ -7,23 +7,6 @@
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
     <style>
-        body {
-            background-color: black;
-            color: yellow;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar {
-            background-color: black;
-            padding: 1rem;
-            text-align: center;
-        }
-        .navbar a {
-            color: yellow;
-            margin: 0 15px;
-            text-decoration: none;
-        }
         .profile-card {
             background-color: #333;
             border-radius: 10px;
@@ -35,47 +18,106 @@
         .profile-card:hover {
             transform: scale(1.05);
         }
-        .buttons {
-            margin-top: 1rem;
-        }
-        .button {
-            background-color: yellow;
-            border: none;
-            color: black;
-            padding: 10px 20px;
-            margin: 5px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <a href="index.html">Home</a>
-        <a href="profile.html">Profile</a>
-        <a href="upload.html">Upload</a>
-        <a href="where.html">Where</a>
-    </div>
-    <div id="profile-container">
-        <div class="profile-card">
-            <img src="profile-photo-url" alt="Profile Photo" style="width:100%; border-radius: 10px;">
-            <h2 id="name">Name</h2>
-            <p id="age-city">Age, City</p>
-            <p id="distance">Distance: X miles</p>
-            <p id="bands">Shared Bands: <span style="color: yellow;">Band1, Band2</span></p>
-            <p id="genre-badge">Genres: Rock, Pop</p>
-            <p id="last-gig">Last Gig: Gig Name</p>
-            <div class="buttons">
-                <button class="button" onclick="likeProfile()">Like</button>
-                <button class="button" onclick="passProfile()">Pass</button>
+    <header class="site-header">
+        <h1>Music Mates UK</h1>
+        <button class="nav-toggle" aria-controls="nav-panel" aria-expanded="false" aria-label="Toggle navigation menu">
+            <span class="hamburger"></span>
+        </button>
+        <nav id="nav-panel" class="nav-panel">
+            <ul class="nav-links">
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="interests.html">Interests</a></li>
+                <li><a href="app.html">App</a></li>
+                <li><a href="gigs.html">Gigs</a></li>
+                <li><a href="where.html">Where</a></li>
+            </ul>
+            <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        </nav>
+    </header>
+    <main>
+        <div id="profile-container">
+            <div class="profile-card">
+                <img src="profile-photo-url" alt="Profile Photo" style="width:100%; border-radius: 10px;">
+                <h2 id="name">Name</h2>
+                <p id="age-city">Age, City</p>
+                <p id="distance">Distance: X miles</p>
+                <p id="bands">Shared Bands: <span style="color: yellow;">Band1, Band2</span></p>
+                <p id="genre-badge">Genres: Rock, Pop</p>
+                <p id="last-gig">Last Gig: Gig Name</p>
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="likeProfile()">Like</button>
+                    <button class="btn btn-primary" onclick="passProfile()">Pass</button>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="matches-section">
-        <h2>Who's Struck a Chord With You</h2>
-        <div id="matches-list"></div>
-    </div>
+        <div id="matches-section">
+            <h2>Who's Struck a Chord With You</h2>
+            <div id="matches-list"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year">2025</span> Music Mates UK. All rights reserved.</p>
+    </footer>
+
     <script>
+        // Mobile navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navPanel = document.getElementById('nav-panel');
+        const body = document.body;
+        let lastFocusedElement = null;
+
+        function openNav() {
+            lastFocusedElement = document.activeElement;
+            body.classList.add('nav-open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            const firstLink = navPanel.querySelector('a');
+            if (firstLink) firstLink.focus();
+        }
+
+        function closeNav() {
+            body.classList.remove('nav-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            if (lastFocusedElement) lastFocusedElement.focus();
+        }
+
+        navToggle.addEventListener('click', () => {
+            const isOpen = body.classList.contains('nav-open');
+            if (isOpen) {
+                closeNav();
+            } else {
+                openNav();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && body.classList.contains('nav-open')) {
+                closeNav();
+            }
+        });
+
+        navPanel.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' && body.classList.contains('nav-open')) {
+                const focusableElements = navPanel.querySelectorAll('a, button');
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        });
+
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
         // Sample JavaScript functions for liking and passing profiles
         function likeProfile() {
             // Logic for liking a profile

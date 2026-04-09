@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interests - Music Mates UK</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <h1>Music Mates UK</h1>
+        <button class="nav-toggle" aria-controls="nav-panel" aria-expanded="false" aria-label="Toggle navigation menu">
+            <span class="hamburger"></span>
+        </button>
+        <nav id="nav-panel" class="nav-panel">
+            <ul class="nav-links">
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="interests.html">Interests</a></li>
+                <li><a href="app.html">App</a></li>
+                <li><a href="gigs.html">Gigs</a></li>
+                <li><a href="where.html">Where</a></li>
+            </ul>
+            <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2 class="page-heading">💝 Your Interests</h2>
+
+            <section>
+                <h3 class="section-heading">Sent Interests</h3>
+                <div id="sent-interests" class="interests-grid">
+                    <article class="interest-card">
+                        <h3>Sarah</h3>
+                        <p>London • 5 miles away</p>
+                        <p>Shared bands: Arctic Monkeys, The 1975</p>
+                        <span class="badge badge-pending">Pending</span>
+                        <div class="actions">
+                            <button class="btn btn-danger btn-sm" data-action="withdraw">Withdraw</button>
+                        </div>
+                    </article>
+                    <article class="interest-card">
+                        <h3>Mike</h3>
+                        <p>Manchester • 3 miles away</p>
+                        <p>Shared bands: Oasis, The Stone Roses</p>
+                        <span class="badge badge-accepted">Accepted</span>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" data-action="message">Message</button>
+                        </div>
+                    </article>
+                    <article class="interest-card">
+                        <h3>Emma</h3>
+                        <p>Birmingham • 8 miles away</p>
+                        <p>Shared bands: Ed Sheeran, Coldplay</p>
+                        <span class="badge badge-declined">Declined</span>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" data-action="view-profile">View Profile</button>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section-spacing">
+                <h3 class="section-heading">Received Interests</h3>
+                <div id="received-interests" class="interests-grid">
+                    <article class="interest-card">
+                        <h3>James</h3>
+                        <p>Bristol • 12 miles away</p>
+                        <p>Shared bands: Massive Attack, Portishead</p>
+                        <span class="badge badge-pending">Pending</span>
+                        <div class="actions">
+                            <button class="btn btn-success btn-sm" data-action="accept">Accept</button>
+                            <button class="btn btn-danger btn-sm" data-action="decline">Decline</button>
+                        </div>
+                    </article>
+                    <article class="interest-card">
+                        <h3>Lily</h3>
+                        <p>Leeds • 6 miles away</p>
+                        <p>Shared bands: Dua Lipa, Harry Styles</p>
+                        <span class="badge badge-pending">Pending</span>
+                        <div class="actions">
+                            <button class="btn btn-success btn-sm" data-action="accept">Accept</button>
+                            <button class="btn btn-danger btn-sm" data-action="decline">Decline</button>
+                        </div>
+                    </article>
+                    <article class="interest-card">
+                        <h3>Tom</h3>
+                        <p>Glasgow • 15 miles away</p>
+                        <p>Shared bands: Snow Patrol, Biffy Clyro</p>
+                        <span class="badge badge-accepted">Accepted</span>
+                        <div class="actions">
+                            <button class="btn btn-primary btn-sm" data-action="message">Message</button>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year">2025</span> Music Mates UK. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile navigation toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navPanel = document.getElementById('nav-panel');
+        const body = document.body;
+        let lastFocusedElement = null;
+
+        function openNav() {
+            lastFocusedElement = document.activeElement;
+            body.classList.add('nav-open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            // Focus first link in nav
+            const firstLink = navPanel.querySelector('a');
+            if (firstLink) firstLink.focus();
+        }
+
+        function closeNav() {
+            body.classList.remove('nav-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            if (lastFocusedElement) lastFocusedElement.focus();
+        }
+
+        navToggle.addEventListener('click', () => {
+            const isOpen = body.classList.contains('nav-open');
+            if (isOpen) {
+                closeNav();
+            } else {
+                openNav();
+            }
+        });
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && body.classList.contains('nav-open')) {
+                closeNav();
+            }
+        });
+
+        // Focus trapping when nav is open
+        navPanel.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' && body.classList.contains('nav-open')) {
+                const focusableElements = navPanel.querySelectorAll('a, button');
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+        });
+
+        // Dynamic year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Interest action handlers (placeholder for future dynamic integration)
+        document.querySelectorAll('[data-action]').forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.dataset.action;
+                const card = this.closest('.interest-card');
+                const name = card.querySelector('h3').textContent;
+
+                switch(action) {
+                    case 'accept':
+                        alert(`You accepted ${name}'s interest!`);
+                        break;
+                    case 'decline':
+                        alert(`You declined ${name}'s interest.`);
+                        break;
+                    case 'withdraw':
+                        alert(`You withdrew your interest in ${name}.`);
+                        break;
+                    case 'message':
+                        alert(`Opening chat with ${name}...`);
+                        break;
+                    case 'view-profile':
+                        alert(`Viewing ${name}'s profile...`);
+                        break;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
