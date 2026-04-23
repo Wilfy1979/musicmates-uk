@@ -1,0 +1,16 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.eol": "\n",
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html"
+  },
+  "html.validate.scripts": true,
+  "html.validate.styles": true,
+  "liveServer.settings.port": 5500,
+  "gitlens.advanced.messages": {
+    "suppressShowKeyBindingsNotice": true
+  }
+}
