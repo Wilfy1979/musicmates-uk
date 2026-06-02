@@ -1,0 +1,22 @@
+{
+  "name": "musicmates-uk-server",
+  "version": "1.0.0",
+  "description": "Music Mates UK Server API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js",
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.2.2",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
